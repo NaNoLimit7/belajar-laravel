@@ -19,7 +19,7 @@
                     <div class="col-sm-6">
                         <div class="">
                           <label class="form-label">Deskripsi Kategori</label>
-                          <textarea class="form-control" name="deskripsi_kategori" cols="80" rows="2" value></textarea>
+                          <textarea class="form-control" name="deskripsi_kategori" cols="80" rows="2"></textarea>
                           @error('deskripsi_kategori')
                               <div class="form-text text-danger">{{ $message }}</div> // variabel message merupakan bawaan dari laravel
                           @enderror

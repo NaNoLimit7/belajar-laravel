@@ -24,18 +24,18 @@
                 <tbody>
                     @forelse ($kategori as $item)
                         <tr>
-                        <th scope="row">{{ $loop->iteration }}</th>
-                        <td>{{ $item->nama_kategori }}</td>
-                        <td>{{ $item->deskripsi }}</td>
-                        <td>
-                          <button class="btn btn-danger">Hapus</button>
-                          <button class="btn btn-warning">Edit</button>
-                          <a href="/kategori/{{ $item->id_kategori }}" class="btn btn-info">Detail</a>
-                        </td>
-                    </tr>
+                            <th scope="row">{{ $loop->iteration }}</th>
+                            <td>{{ $item->nama_kategori }}</td>
+                            <td>{{ $item->deskripsi }}</td>
+                            <td>
+                                <button class="btn btn-danger">Hapus</button>
+                                <a href="/kategori/{{ $item->id_kategori }}/edit" class="btn btn-warning">Edit</a>
+                                <a href="/kategori/{{ $item->id_kategori }}" class="btn btn-info">Detail</a>
+                            </td>
+                        </tr>
                     @empty
                         <tr>
-                          <td colspan="4" class="text-center">Data yang anda cari tidak ada!!</td>
+                            <td colspan="4" class="text-center">Data yang anda cari tidak ada!!</td>
                         </tr>
                     @endforelse
                 </tbody>

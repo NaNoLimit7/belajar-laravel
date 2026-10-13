@@ -64,17 +64,35 @@ class KategoriController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $data = kategori::findOrFail($id);
+
+        return view('pages.kategori.edit', [
+            'data' => $data
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update($id, Request $request)
     {
-        //
+        $request->validate([
+            'nama_kategori' => 'required|min:6',
+            'deskripsi_kategori' => 'required'
+        ], [
+            'nama_kategori.required' => 'inputan nama kategori wajib diisi',
+            'nama_kategori.min' => 'inputan nama minimal berisi 6 karakter',
+            'deskripsi_kategori.required' => 'inputan kategori wajib diisi'
+        ]);
+
+        kategori::where('id_kategori', $id)->update([
+            'nama_kategori' => $request->nama_kategori,
+            'deskripsi' => $request->deskripsi_kategori
+        ]);
+
+        return redirect('/kategori')->with('message', 'data berhasil diedit');
     }
 
     /**
