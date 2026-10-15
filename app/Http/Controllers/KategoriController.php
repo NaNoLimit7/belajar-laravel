@@ -98,8 +98,9 @@ class KategoriController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        kategori::findOrFail($id)->delete();
+        return redirect('/kategori')->with('message', 'data berhasil dihapus');
     }
 }
