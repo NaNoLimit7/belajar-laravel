@@ -10,11 +10,17 @@ class KategoriController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         // query untuk ambil semua data -> get()
         // DB::table('tb_kategori')->get();
-        $kategori = kategori::get();
+
+        $search = $request->keyword;
+
+        $kategori = kategori::when($search, function ($query, $search) {
+            return $query->where('nama_kategori', 'like', "%{$search}%")
+                ->orWhere('deskripsi', 'like', "%{$search}%");
+        })->get();
         return view('pages.kategori.show', compact(('kategori')));
     }
 
