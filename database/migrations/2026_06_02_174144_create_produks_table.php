@@ -14,11 +14,18 @@ return new class extends Migration
         // syntax di bawah digunakan untuk membuat tabel produk
         Schema::create('tb_produk', function (Blueprint $table) {
             $table->id('id_produk');// defaultnya id()
+            $table->string('kode_produk')->unique(); //unique agar satu produk tidak memiliki kode yang sama dengan produk lainnya
             $table->string('nama_produk', 150); // default length dari laravel adalah 255
-            $table->integer('harga');
+            $table->bigInteger('harga');
             $table->text('deskripsi_produk');
-            $table->integer('kategori_id');
+            $table->integer('stok');
+            $table->string('gambar')->nullable();
+            $table->unsignedBigInteger('kategori_id');
             $table->timestamps();
+
+            $table->foreign('kategori_id')->references('id_kategori')->on('tb_kategori')->onDelete('cascade');
+            //cascade: jika sebuah kategori dihapus, produk dengan kategori yang dihapus tadi juga ikut terhapus
+            //urutan file migrasi di folder migration penting karena pembuatan tabel dimulai dari file paling atas ke paling bawah
         });
     }
 

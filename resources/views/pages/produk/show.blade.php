@@ -33,9 +33,11 @@
                 <thead>
                     <tr>
                         <th scope="col">NO</th>
+                        <th scope="col">Kode Produk</th>
                         <th scope="col">Nama</th>
                         <th scope="col">Harga</th>
-                        <th scope="col">Deskripsi</th>
+                        <th scope="col">Stok</th>
+                        <th scope="col">Ketegori</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
@@ -43,9 +45,11 @@
                     @forelse ($data_produk as $item)
                         <tr>
                             <th scope="row">{{ $loop->iteration }}</th>
+                            <td>{{ $item->kode_produk }}</td>
                             <td>{{ $item->nama_produk }}</td>
                             <td>{{ $item->harga }}</td>
-                            <td>{{ $item->deskripsi_produk }}</td>
+                            <td>{{ $item->stok }}</td>
+                            <td>{{ $item->nama_kategori }}</td>
                             <td>
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                     data-bs-target="#hapus{{ $item->id_produk }}">
