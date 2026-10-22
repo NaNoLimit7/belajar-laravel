@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
+@section('title', 'Daftar produk')
+
 @section('konten')
-    <h1>Daftar produk kami</h1>
-    <hr>
     <a href="/product/create" type="button" class="btn btn-primary mb-3">Tambah data</a>
 
     <div class="alert alert-primary">

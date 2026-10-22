@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
+@section('title', 'Daftar kategori produk')
+
 @section('konten')
-    <h1>Daftar kategori produk</h1>
-    <hr>
     <a href="/kategori/create" class="btn btn-primary mb-3">Tambah Kategori</a>
     @if (session('message'))
         <div class="alert alert-primary">{{ session('message') }}</div>

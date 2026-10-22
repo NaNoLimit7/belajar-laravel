@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
+@section('title', 'Tambah data produk')
+
 @section('konten')
-    <h1>Tambah data produk</h1>
-    <hr>
     <div class="card">
         <div class="card-header">tambah data produk</div>
         <div class="card-body">

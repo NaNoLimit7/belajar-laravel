@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
+@section('title', 'Detail produk')
+
 @section('konten')
-    <h1>Detail produk</h1>
-    <hr>
     <div class="card">
         <div class="card-header">
             Detail Produk

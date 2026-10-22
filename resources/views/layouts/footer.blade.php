@@ -1,17 +1,9 @@
-<style>
-      .footer{
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        height: 50px;
-        width: 100%;
-        background-color: #303030;
-        color: #fefefe;
-        text-align: center;
-        line-height: 50px;
-      }
-    </style>
-
-<div class="footer">
-  <span>Copyright Rakhmanullah laravel 12</span>
-</div>
+<!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2020</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
