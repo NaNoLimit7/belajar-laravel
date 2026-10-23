@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-warning sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -51,13 +51,13 @@
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="/product">
-                    <i class="fas fa-fw fa-trophy"></i>
+                    <i class="fa-solid fa-cart-shopping"></i>
                     <span>Produk</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="/kategori">
-                    <i class="fas fa-fw fa-truck"></i>
+                    <i class="fa-brands fa-kickstarter"></i>
                     <span>Kategori</span></a>
             </li>
 

@@ -22,12 +22,12 @@ class ProdukController extends Controller
 
         $search = $request->keyword;
 
-        $produk = produk::when($search,function($query, $search){
-            return $query->where('nama_produk','like', "%{ $search }%")
-            ->orWhere('deskripsi_produk', 'like', "%{ $search }%");
+        $produk = produk::when($search, function ($query, $search) {
+            return $query->where('nama_produk', 'like', "%{ $search }%")
+                ->orWhere('deskripsi_produk', 'like', "%{ $search }%");
         })
-        ->join('tb_kategori', 'tb_produk.kategori_id', '=', 'tb_kategori.id_kategori') //jika join maka dua tabel disambungkan menggunakan foreign key dan primary key
-        ->get();
+            ->join('tb_kategori', 'tb_produk.kategori_id', '=', 'tb_kategori.id_kategori') //jika join maka dua tabel disambungkan menggunakan foreign key dan primary key
+            ->get();
         // query untuk mengambil semua data yang berada di tb_produk
         // $queryBuilder = DB::table('tb_produk')->get(); // query menggunakan query builder (kegunaany sama dg syntax di atas)
         return view('pages.produk.show', [
@@ -52,7 +52,8 @@ class ProdukController extends Controller
             'harga_produk' => 'required',
             'deskripsi' => 'required',
             'stok' => 'required|max:100',
-            'kategori' => 'required'
+            'kategori' => 'required',
+            'gambar' => 'image|mimes:jpg,png,jpeg|max:2000'
         ], [
             'nama_produk.min' => 'nama produk minimal 8 karakter',
             'nama_produk.max' => 'nama produk maksimal 12 karakter',
@@ -61,9 +62,14 @@ class ProdukController extends Controller
             'deskripsi.required' => 'inputan deskripsi wajib diisi',
             'stok.required' => 'inputan stok wajib diisi',
             'stok.max' => 'stok maksimal 100 stok',
-            'kategori.required' => 'opsi kategori harus diisi'
+            'kategori.required' => 'opsi kategori harus diisi',
+            'gambar.image' => 'inputan wajib gambar',
+            'gambar.mimes' => 'format gambar wajib jpg/png/jpeg',
+            'gambar.max' => 'ukuran gambar maksimal 2000'
         ]);
 
+        $namaFile = Str::random(5) . '.' . $request->gambar->extension();
+        $request->gambar->move(public_path('gambar_produk'), $namaFile);
         // untuk menambahkan data ke tb_produk
         // DB::table('tb_produk')->create([]);
         // query tambah data
@@ -73,7 +79,8 @@ class ProdukController extends Controller
             'harga' => $request->harga_produk,
             'deskripsi_produk' => $request->deskripsi,
             'kategori_id' => $request->kategori,
-            'stok' => $request->stok
+            'stok' => $request->stok,
+            'gambar' => $namaFile
         ]);
 
         // setelah data berhasil ditambah, akan mengarahkan ke halaman /product dan memberikan notif berhasil me....
@@ -85,7 +92,6 @@ class ProdukController extends Controller
         // query atau perintah
         // eloquent orm
         $data = produk::findOrFail($id);
-        
 
         // query builder
         // DB::table('tb_produk')->where('id_produk', $id)->firstOrFail();
@@ -94,7 +100,8 @@ class ProdukController extends Controller
         ]);
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         // mengambil satu data spesifik dari id yang dikirimkan dari paramater
         $data = produk::findOrFail($id);
         $data_kategori = kategori::get();
@@ -105,14 +112,16 @@ class ProdukController extends Controller
         ]);
     }
 
-    public function update($id, Request $request){
-        
+    public function update($id, Request $request)
+    {
+
         $request->validate([
             'nama_produk' => 'required|min:8',
             'harga_produk' => 'required',
             'deskripsi' => 'required',
             'stok' => 'required|max:100',
-            'kategori' => 'required'
+            'kategori' => 'required',
+            'gambar' => 'image|mimes:jpg,png,jpeg|max:2000'
         ], [
             'nama_produk.min' => 'Nama produk minimal 8 karakter',
             'nama_produk.required' => 'inputan nama produk wajib diisi',
@@ -120,22 +129,35 @@ class ProdukController extends Controller
             'deskripsi.required' => 'inputan deskripsi wajib diisi',
             'stok.required' => 'inputan stok wajib diisi',
             'stok.max' => 'stok maksimal 100 stok',
-            'kategori.required' => 'opsi kategori harus diisi'
+            'kategori.required' => 'opsi kategori harus diisi',
+            'gambar.image' => 'inputan wajib gambar',
+            'gambar.mimes' => 'format gambar wajib jpg/png/jpeg',
+            'gambar.max' => 'ukuran gambar maksimal 2000'
         ]);
+
+        if ($request->hasFile('gambar')) {
+            $namaFile = Str::random(5) . '.' . $request->gambar->extension();
+            $request->gambar->move(public_path('gambar_produk'), $namaFile);
+        } else {
+            $data_lama = produk::findOrFail($id);
+            $namaFile = $data_lama->gambar;
+        }
 
         // query untuk simpan data yang telah kita update
         produk::where('id_produk', $id)->update([
-            'nama_produk'=>$request->nama_produk,
-            'harga'=>$request->harga_produk,
-            'deskripsi_produk'=>$request->deskripsi,
-            'stok'=>$request->stok,
-            'kategori_id'=>$request->kategori,
+            'nama_produk' => $request->nama_produk,
+            'harga' => $request->harga_produk,
+            'deskripsi_produk' => $request->deskripsi,
+            'stok' => $request->stok,
+            'kategori_id' => $request->kategori,
+            'gambar' => $namaFile
         ]);
 
         return redirect('/product')->with('message', 'Data berhasil diedit');
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         // query untuk menghapus data di database
         produk::findOrFail($id)->delete();
         return redirect('/product')->with('message', 'Data berhasil dihapus');

@@ -23,7 +23,8 @@
                     <a href="/product" class="btn btn-info">Reset</a>
                 @endif
                 <form class="input-group" style="width: 350px">
-                    <input type="text" class="form-control" name="keyword" value="{{ Request()->keyword }}" placeholder="Cari data produk">
+                    <input type="text" class="form-control" name="keyword" value="{{ Request()->keyword }}"
+                        placeholder="Cari data produk">
                     <button class="btn btn-success" type="submit" id="button-addon2">Cari data</button>
                 </form>
             </div>
@@ -51,8 +52,8 @@
                             <td>{{ $item->stok }}</td>
                             <td>{{ $item->nama_kategori }}</td>
                             <td>
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#hapus{{ $item->id_produk }}">
+                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                    data-target="#hapus{{ $item->id_produk }}">
                                     Hapus
                                 </button>
                                 {{-- <button type="button" class="btn btn-danger">Hapus</button> --}}
@@ -72,21 +73,21 @@
 
     <!-- Modal -->
     @foreach ($data_produk as $item)
-        <div class="modal fade" id="hapus{{ $item->id_produk }}" data-bs-backdrop="static" data-bs-keyboard="false"
-            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <!-- Modal -->
+        <div class="modal fade" id="hapus{{ $item->id_produk }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <form action="/product/{{ $item->id_produk }}" method="POST" class="modal-content">
                     @csrf
                     @method('DELETE')
                     <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">Konfirmasi!!</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         Apakah anda yakin ingin menghapus produk {{ $item->nama_produk }}??
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-danger">Hapus Data</button>
                     </div>
                 </form>

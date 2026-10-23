@@ -8,7 +8,11 @@
             Detail Produk
         </div>
         <div class="card-body">
-          <img src="https://placehold.co/600x400" class="img-fluid" alt="...">
+          @if ($produk->gambar == null)
+              <p>Tidak ada gambar</p>
+          @else
+          <img src="{{ asset('gambar_produk/'.$produk->gambar) }}" class="img-fluid" width="500" alt="...">
+          @endif
           <p>Nama produk : {{ $produk->nama_produk }}</p>
           <p>Harga : Rp.{{ $produk->harga }}</p>
           <p>Deskripsi : {{ $produk->deskripsi_produk }}</p>
