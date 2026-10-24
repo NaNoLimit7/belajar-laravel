@@ -46,7 +46,7 @@
                     @forelse ($data_produk as $item)
                         <tr>
                             <th scope="row">{{ $loop->iteration }}</th>
-                            <td>{{ $item->kode_produk }}</td>
+                            <td>{!! DNS1D::getBarcodeHTML($item->kode_produk, 'C39', 2, 50) !!}</td>
                             <td>{{ $item->nama_produk }}</td>
                             <td>{{ $item->harga }}</td>
                             <td>{{ $item->stok }}</td>
